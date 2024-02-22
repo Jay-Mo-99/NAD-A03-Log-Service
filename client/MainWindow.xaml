@@ -7,7 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Margin="189,61,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox HorizontalAlignment="Left" Margin="93,51,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="255" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Margin="451,52,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
+        <TextBox HorizontalAlignment="Left" Margin="93,106,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="478" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
+        <ListBox Grid.ColumnSpan="2" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="93,156,229,61"/>
+        <Label Content="IP/Host" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="22,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.016,0.055"/>
+        <Label Content="Port" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="400,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.016,0.055"/>
+        <Label Content="Message" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="22,102,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.016,0.055"/>
+        <Button Content="Connect" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="625,53,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.313,0.643" Width="62"/>
+        <Button Content="Disconnect" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="704,52,0,0" VerticalAlignment="Top"/>
+        <Button Content="Send" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="625,104,0,0" VerticalAlignment="Top" Width="141" RenderTransformOrigin="0.144,-0.008"/>
 
     </Grid>
 </Window>
