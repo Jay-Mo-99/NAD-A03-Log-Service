@@ -24,6 +24,7 @@ namespace client
         int port;
         string message;
         NetworkStream stream;
+        int byteCount;
         byte[] sendData;
         TcpClient client;
         public MainWindow()
@@ -57,6 +58,34 @@ namespace client
 
         }
 
+        
+        private void btn_Send_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                //Send the Data for server
+                message = txt_Msg.Text;
+                byteCount = Encoding.ASCII.GetByteCount(message);
+                sendData = new byte[byteCount];
+                sendData = Encoding.ASCII.GetBytes(message);
+                stream = client.GetStream();
+                stream.Write(sendData, 0, sendData.Length);
+                listBox_Display.Items.Add("Sent Data " + message);
+
+            }
+            //If the connection is not well about sending message, It is Error. 
+            catch (System.NullReferenceException)
+            {
+                listBox_Display.Items.Add("Error: Failed to sent data");
+            }
+        }
+
+        private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            stream.Close();
+            client.Close();
+            listBox_Display.Items.Add("Info: Connection terminated");
    
+        }
     }
 }
