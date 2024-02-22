@@ -31,6 +31,22 @@ namespace client
         {
             InitializeComponent();
         }
+        //Send Messeage to Server
+        private void SendMessageToServer(string message)
+        {
+            try
+            {
+                
+                byte[] data = Encoding.ASCII.GetBytes(message);
+                stream = client.GetStream();
+                stream.Write(data, 0, data.Length);
+            }
+            catch (Exception ex)
+            {
+                //Sending Error is Error Situation. 
+                listBox_Display.Items.Add("Error: Unable to send message to server. " + ex.Message);
+            }
+        }
 
         //If the client click the connect button 
         private void btn_Connect_Click(object sender, RoutedEventArgs e)
@@ -41,18 +57,22 @@ namespace client
                 //Input Problem of Client is Notice situation
                 //Add the listbox and Send Notice to Server
                 listBox_Display.Items.Add("Notice: Port number is invalid: Please enter the number type(Ex: 8000)");
+                //Send Message To Server
+                SendMessageToServer("Notice: Port number from Client is invalid");
             }
             try
             {
                 //If ip and port is valid, Connect with server
                 client = new TcpClient(txt_IP.Text, port);
                 listBox_Display.Items.Add("Info: Connection Succeed");
+                SendMessageToServer("Info: Connection Succeed");
             }
-            catch (System.Net.Sockets.SocketException)
+            catch (System.Net.Sockets.SocketException ex)
             {
                 //If connection have problem, It is the Error situation
                 //Add the listbox and Send the Error situation to Server
                 listBox_Display.Items.Add("Error: Connection Failed");
+                SendMessageToServer("Error: Connection Failed: " + ex.Message);
 
             }
 
@@ -74,9 +94,10 @@ namespace client
 
             }
             //If the connection is not well about sending message, It is Error. 
-            catch (System.NullReferenceException)
+            catch (System.NullReferenceException ex)
             {
                 listBox_Display.Items.Add("Error: Failed to sent data");
+                SendMessageToServer("Error: Failed to sent data :" + ex.Message);
             }
         }
 
@@ -85,7 +106,8 @@ namespace client
             stream.Close();
             client.Close();
             listBox_Display.Items.Add("Info: Connection terminated");
-   
+            SendMessageToServer("Info: Connection terminated");
         }
+
     }
 }
