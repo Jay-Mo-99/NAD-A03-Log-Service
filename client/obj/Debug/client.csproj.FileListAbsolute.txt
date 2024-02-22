@@ -1,0 +1,15 @@
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\bin\Debug\client.exe.config
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\bin\Debug\client.exe
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\bin\Debug\client.pdb
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.csproj.AssemblyReference.cache
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\MainWindow.g.cs
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\App.g.cs
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client_MarkupCompile.cache
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client_MarkupCompile.lref
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\MainWindow.baml
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.g.resources
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.Properties.Resources.resources
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.csproj.GenerateResource.cache
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.csproj.CoreCompileInputs.cache
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.exe
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\client\obj\Debug\client.pdb
