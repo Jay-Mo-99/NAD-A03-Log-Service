@@ -1,6 +1,7 @@
 import socket
 import threading
 import datetime
+import configparser #config file for ip and port 
 
 def handle_client(client_socket, client_address, client_id):
     with client_socket as sock:
@@ -20,8 +21,13 @@ def handle_client(client_socket, client_address, client_id):
             print(f"Connection with Client{client_id} ({client_address}) was lost.")
 
 def run_server():
-    host = 'localhost'
-    port = 8000
+    #IP and Port
+    config = configparser.ConfigParser()
+    config.read('server_config.ini')  # the name of config file name
+    host = config['DEFAULT']['Host']
+    port = config['DEFAULT'].getint('Port')
+    
+    #Socket for connection 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
     server.listen(5)
