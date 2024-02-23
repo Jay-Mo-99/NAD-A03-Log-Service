@@ -27,23 +27,25 @@ namespace client
         int byteCount;
         byte[] sendData;
         TcpClient client;
+        private readonly object streamLock = new object(); //Lock object for Stream synchronization
         public MainWindow()
         {
             InitializeComponent();
         }
-        //Send Messeage to Server
+        //Send Message to Server 
         private void SendMessageToServer(string message)
         {
             try
             {
-                
-                byte[] data = Encoding.ASCII.GetBytes(message);
-                stream = client.GetStream();
-                stream.Write(data, 0, data.Length);
+                lock (streamLock) //Stream Synchronization
+                {
+                    byte[] data = Encoding.ASCII.GetBytes(message);
+                    stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                }
             }
             catch (Exception ex)
             {
-                //Sending Error is Error Situation. 
                 listBox_Display.Items.Add("Error: Unable to send message to server. " + ex.Message);
             }
         }
@@ -51,8 +53,12 @@ namespace client
         //If the client click the connect button 
         private void btn_Connect_Click(object sender, RoutedEventArgs e)
         {
+            //If the client click the connect button, Disable until you press the Connect button
+            btn_Connect.IsEnabled = false;
+            btn_Disconnect.IsEnabled = true;
+
             //If the user input invalid input in txt_Port
-            if(!int.TryParse(txt_Port.Text, out int port))
+            if (!int.TryParse(txt_Port.Text, out int port))
             {
                 //Input Problem of Client is Notice situation
                 //Add the listbox and Send Notice to Server
@@ -85,12 +91,8 @@ namespace client
             {
                 //Send the Data for server
                 message = txt_Msg.Text;
-                byteCount = Encoding.ASCII.GetByteCount(message);
-                sendData = new byte[byteCount];
-                sendData = Encoding.ASCII.GetBytes(message);
-                stream = client.GetStream();
-                stream.Write(sendData, 0, sendData.Length);
-                listBox_Display.Items.Add("Sent Data " + message);
+                SendMessageToServer("Info: Sent Data :" + message);
+                listBox_Display.Items.Add("Info: Sent Data :" + message);
 
             }
             //If the connection is not well about sending message, It is Error. 
@@ -103,10 +105,17 @@ namespace client
 
         private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            stream.Close();
-            client.Close();
+            lock (streamLock) //Synchronize to the stream
+            {
+                stream.Close();
+                client.Close();
+            }
+
             listBox_Display.Items.Add("Info: Connection terminated");
             SendMessageToServer("Info: Connection terminated");
+            //Re-enable the Connect button when you press Disconnect
+            btn_Connect.IsEnabled = true;
+            btn_Disconnect.IsEnabled = false;
         }
 
     }
