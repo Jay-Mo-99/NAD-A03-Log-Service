@@ -2,32 +2,38 @@ import socket
 import threading
 import datetime
 
-def client_thread(conn, addr):
-    print(f"Connected by {addr}")
-    with conn:
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            log_message = f"{timestamp} - {data.decode('utf-8')}"
-            print(log_message)
-            with open("server_log.txt", "a") as file:
-                file.write(log_message + "\n")
+def handle_client(client_socket, client_address, client_id):
+    with client_socket as sock:
+        try:
+            while True:
+                message = sock.recv(1024).decode('utf-8')
+                if not message:
+                    break
 
-def start_server():
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                log_message = f"{timestamp} - Client{client_id} ({client_address}): {message}"
+                print(log_message)
+                with open("log.txt", "a") as log_file:
+                    log_file.write(log_message + "\n")
+                
+        except ConnectionResetError:
+            print(f"Connection with Client{client_id} ({client_address}) was lost.")
+
+def run_server():
     host = 'localhost'
-    port = 8000  # Port to listen on
+    port = 8000
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.bind((host, port))
+    server.listen(5)
+    print(f"[*] Listening on {host}:{port}")
 
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind((host, port))
-        s.listen()
-        print(f"Server listening on {host}:{port}")
-        
-        while True:
-            conn, addr = s.accept()
-            thread = threading.Thread(target=client_thread, args=(conn, addr))
-            thread.start()
+    client_id = 0
+    while True:
+        client_socket, client_address = server.accept()
+        client_id += 1
+        print(f"[*] Accepted connection from {client_address[0]}:{client_address[1]}")
+        thread = threading.Thread(target=handle_client, args=(client_socket, client_address, client_id))
+        thread.start()
 
 if __name__ == "__main__":
-    start_server()
+    run_server()

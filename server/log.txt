@@ -1,0 +1,28 @@
+2024-02-22 18:25:16 - Client1 (('127.0.0.1', 58577)): 
+2024-02-23 17:46:47 - Client1 (('127.0.0.1', 59557)): Info: Connection Succeed
+2024-02-23 17:47:01 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :Hi
+2024-02-23 17:47:06 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:24 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:24 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:24 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:24 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:25 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:25 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:25 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:25 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:25 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:26 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:26 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:26 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:26 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:26 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:27 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:27 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:27 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:27 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:27 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:28 - Client1 (('127.0.0.1', 59557)): Info: Sent Data :I am Jay
+2024-02-23 17:48:50 - Client2 (('127.0.0.1', 60024)): Info: Connection Succeed
+2024-02-23 17:48:58 - Client2 (('127.0.0.1', 60024)): Info: Sent Data :a
+2024-02-23 17:49:02 - Client2 (('127.0.0.1', 60024)): Info: Sent Data :b
+2024-02-23 17:49:08 - Client2 (('127.0.0.1', 60024)): Info: Sent Data :c
