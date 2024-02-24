@@ -17,6 +17,19 @@ import configparser
 #
 #
 
+
+    ###
+    #Method: handle_client
+    #Purpose: Handle communication with a client.
+    #         Receive messages from the client, log them, and handle exceptions.
+    #Param:
+    #    client_socket (socket): The socket representing the client connection.
+    #    client_address (tuple): IP address and port number.
+    #    client_id (int): A identifier for the client
+    #    timestamp_format (str): The format string for timestamps and log.
+    #    entry_format (str): The format string for log.
+    #Returns: None
+    ###
 def handle_client(client_socket, client_address, client_id, timestamp_format, entry_format):
     with client_socket as sock:
         try:
@@ -55,6 +68,7 @@ def handle_client(client_socket, client_address, client_id, timestamp_format, en
                 log_file.write(generic_error_message + "\n")
 
 def run_server():
+    
     # Read the server_config.ini file to get the host and port information.
     config = configparser.ConfigParser()
     config.read('server_config.ini')
