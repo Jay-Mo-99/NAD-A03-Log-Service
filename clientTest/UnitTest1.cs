@@ -6,6 +6,14 @@ using System;
 using System.Text;
 using System.Reflection;
 
+/*
+* FILE :        UnitTest1.cs
+* PROJECT :     clientTest
+* PROGRAMMER :  Jay Mo
+* DATE :        2024-02-24
+* DESCRIPTION : Test the function of the "client" project.
+*
+ */
 namespace clientTest
 {
 
@@ -20,8 +28,9 @@ namespace clientTest
 
         }
 
+        //Test the DisconnectNetwork() function.
         [Test, Apartment(ApartmentState.STA)]
-        public void TestDisconnectNetwork()
+        public void TestDisconnectNetwork_Disconnect()
         {
             // Arrange
             mainWindow = new MainWindow();

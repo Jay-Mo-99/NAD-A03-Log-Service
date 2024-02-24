@@ -20,7 +20,37 @@ using System.Windows.Shapes;
 * PROGRAMMER :  Jay Mo
 * DATE :        2024-02-24
 * DESCRIPTION :
-* It includes a function of creating or deleting a log file with a specific name on the desktop and writing the contents in the log file.
+* 
+* Main Function: 
+*   * Connect: 
+*             The user can connect to the server by entering the server's ip and port correctly and pressing the connect button. 
+*             If the user enters invalid values for the ip and port, a message box will display a warning. If Connect succeeds, the Connect button will be disabled until you press Disconnect.
+*
+*   * Send: 
+*             After a successful connection between the client and the server, users can enter a message and press the Send button to send a message to the server. 
+*             If you press the Send button without entering a message, the message box displays a warning.
+*
+*   * Disconnect: 
+*             Pressing the button removes the connection between the client and the server. 
+*             Pressing the Disconnect button will reset the message entry box and listbox. At the same time, the Connect button will be reactivated.
+*             
+* 
+* Log Severity Level:
+*     * Critical:
+*               If a user sends a message more than 20 times after Connect is successful, the user is recognized as an intruder. 
+*               Show a warning to the user in a message box and force the client to shut down.
+*               
+*     * Error:
+*               This is considered an error situation when a network error occurs between the Client and the Server. 
+*               Users can query Listbox for the error.       
+*               
+*     * Info(Information):
+*               Connection Success/Terminate/Send Message is considered normal and is displayed at the Information level. 
+*               Users can look up their Info in Listbox.
+*               
+*     * Notice:
+*               The client's IP/Port input error is a notice situation that only appears to the client. 
+*               Users can notify the user of the situation with a message box or query the Listbox.
 * 
 *  
  */
