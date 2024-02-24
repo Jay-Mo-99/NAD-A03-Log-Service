@@ -38,8 +38,14 @@ namespace client
             InitializeComponent();
         }
         //Send Message to Server 
-        private void SendMessageToServer(string message)
+        public void SendMessageToServer(string message)
         {
+            if (sendCount > sendLimitCount)
+            {
+                //If sendCount exceeds sendLimitCount, stop sending messages.
+                return;
+            }
+
             try
             {
                 lock (streamLock) //Stream Synchronization
@@ -57,7 +63,17 @@ namespace client
                         byte[] warningData = Encoding.ASCII.GetBytes(warningMessage);
                         stream.Write(warningData, 0, warningData.Length);
 
-                        sendCount = 0; // Initialize Count
+                        // A message box notifies the user of the excess contact towards the server and informs the client of the forced shutdown.
+                        MessageBox.Show(warningMessage +"\n"+ "This client will be forced to shut down.","Critical");
+
+                        // Disconnect the client and close the form
+
+                        Dispatcher.Invoke(() =>
+                        {
+                            btn_Disconnect_Click(this, null);
+                            this.Close(); // Close the client form
+                        });
+                        return;
                     }
                 }
             }
@@ -75,7 +91,7 @@ namespace client
             btn_Disconnect.IsEnabled = true;
 
             //If the user input invalid input in txt_Port
-            if (!int.TryParse(txt_Port.Text, out int port))
+            if (!int.TryParse(txt_Port.Text, out port))
             {
                 //Input Problem of Client is Notice situation
                 //Add the listbox and Send Notice to Server
@@ -90,7 +106,7 @@ namespace client
                 listBox_Display.Items.Add("Info: Connection Succeed");
                 SendMessageToServer("Info: Connection Succeed");
             }
-            catch (System.Net.Sockets.SocketException ex)
+            catch (Exception)
             {
                 //If connection have problem, It is the Error situation
                 //Add the listbox and Send the Error situation to Server
@@ -107,8 +123,15 @@ namespace client
             {
                 //Send the Data for server
                 message = txt_Msg.Text;
+                if (string.IsNullOrEmpty(message)) //Check the message is null or not
+                {
+                    // If there is no message, display a warning message
+                    MessageBox.Show("Enter a message to send to the server and press the Send button.", "Notice");
+                    return; // Return to stop running the method afterwards
+                }
                 SendMessageToServer("Info: Sent Data :" + message);
                 listBox_Display.Items.Add("Info: Sent Data :" + message);
+
 
             }
             //If the connection is not well about sending message, It is Error. 
@@ -139,14 +162,19 @@ namespace client
 
             listBox_Display.Items.Add("Info: Connection terminated");
 
-            // Re-enable the Connect button when user click Disconnect button
-            btn_Connect.IsEnabled = true;
-            btn_Disconnect.IsEnabled = false;
+            //UI Thread
+            Dispatcher.Invoke(() =>
+            {
+                listBox_Display.Items.Add("Info: Connection terminated");
 
-            //Initialize txt_Msg and listBox_Display
-            txt_Msg.Clear();
-            listBox_Display.Items.Clear();
+                // Re-enable the Connect button when user click Disconnect button
+                btn_Connect.IsEnabled = true;
+                btn_Disconnect.IsEnabled = false;
+
+                //Initialize txt_Msg and listBox_Display
+                txt_Msg.Clear();
+                listBox_Display.Items.Clear();
+            });
         }
-
     }
 }
