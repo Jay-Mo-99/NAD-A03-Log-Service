@@ -1,5 +1,4 @@
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\testhost.dll
-C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\testhost.exe
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\NUnit3.TestAdapter.dll
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\NUnit3.TestAdapter.pdb
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\nunit.engine.dll
@@ -103,3 +102,5 @@ C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\obj\
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\obj\Debug\net8.0\clientTest.pdb
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\obj\Debug\net8.0\clientTest.genruntimeconfig.cache
 C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\obj\Debug\net8.0\ref\clientTest.dll
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\testhost.x86.exe
+C:\MyFiles\Level 4\Network Application\Assignment\realA03\client\clientTest\bin\Debug\net8.0\testhost.x86.dll

@@ -14,11 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/*
+* FILE :        MainWindow.xaml.cs
+* PROJECT :     client
+* PROGRAMMER :  Jay Mo
+* DATE :        2024-02-24
+* DESCRIPTION :
+* It includes a function of creating or deleting a log file with a specific name on the desktop and writing the contents in the log file.
+* 
+*  
+ */
 namespace client
-{
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+
+{ 
+
     public partial class MainWindow : Window
     {
         int port;
@@ -30,6 +39,7 @@ namespace client
         private readonly object streamLock = new object(); //Lock object for Stream synchronization
         private int sendCount = 0; //Variable that track the number of message transmissions
         private const int sendLimitCount = 20; // Limit time for send 
+        public bool checkDisconnet = false;
 
 
 
@@ -95,9 +105,11 @@ namespace client
             {
                 //Input Problem of Client is Notice situation
                 //Add the listbox and Send Notice to Server
+
+                // A message box notifies the user of the excess contact towards the server and informs the client of the forced shutdown.
+                MessageBox.Show("The IP and port you entered do not match the server", "Notice");
                 listBox_Display.Items.Add("Notice: Port number is invalid: Please enter the number type(Ex: 8000)");
-                //Send Message To Server
-                SendMessageToServer("Notice: Port number from Client is invalid");
+
             }
             try
             {
@@ -106,11 +118,12 @@ namespace client
                 listBox_Display.Items.Add("Info: Connection Succeed");
                 SendMessageToServer("Info: Connection Succeed");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                //If connection have problem, It is the Error situation
-                //Add the listbox and Send the Error situation to Server
-                listBox_Display.Items.Add("Notice: The IP address and port number do not match.Connection Failed");
+                //A problem with IP and the server cannot connect is a client's input problem.Notice
+                //Creating a Message Box
+                MessageBox.Show(ex + "\n" + "Please check the ip and Port", "Notice");
+                listBox_Display.Items.Add("Notice: Connection Failed. Please check the ip and Port");                //Add the listbox
 
             }
 
@@ -142,25 +155,33 @@ namespace client
             }
         }
 
-        private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
+        public bool DisconnectNetwork()
         {
-            lock (streamLock) // Synchronize to the stream
+            lock (streamLock)
             {
                 if (stream != null)
                 {
                     SendMessageToServer("Info: Connection terminated");
                     stream.Close();
                     stream = null;
+                    checkDisconnet = true;
                 }
 
                 if (client != null)
                 {
                     client.Close();
                     client = null;
+                    checkDisconnet = false;
                 }
-            }
 
-            listBox_Display.Items.Add("Info: Connection terminated");
+                return checkDisconnet;
+            }
+        }
+
+        private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
+        {
+            DisconnectNetwork();
+
 
             //UI Thread
             Dispatcher.Invoke(() =>

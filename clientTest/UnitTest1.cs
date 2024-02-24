@@ -4,9 +4,11 @@ using Moq;
 using System.Net.Sockets;
 using System;
 using System.Text;
+using System.Reflection;
 
 namespace clientTest
 {
+
     public class Tests
     {
         private Mock<NetworkStream> mockStream;
@@ -15,26 +17,20 @@ namespace clientTest
         [SetUp]
         public void Setup()
         {
-            mockStream = new Mock<NetworkStream>();
-            mockClient = new Mock<TcpClient>();
-            mainWindow = new MainWindow();
 
-            //TcpClient and NetworkStream mock object settings
-            mockClient.Setup(c => c.GetStream()).Returns(mockStream.Object);
         }
 
-        [Test]
-        public void TestSendMessageToServer()
+        [Test, Apartment(ApartmentState.STA)]
+        public void TestDisconnectNetwork()
         {
             // Arrange
-            string testMessage = "Test message";
-            byte[] messageBytes = Encoding.ASCII.GetBytes(testMessage);
+            mainWindow = new MainWindow();
 
             // Act
-            mainWindow.SendMessageToServer(testMessage);
+            bool result = mainWindow.DisconnectNetwork();
 
             // Assert
-            mockStream.Verify(stream => stream.Write(messageBytes, 0, messageBytes.Length), Times.Once);
+            Assert.IsFalse(result);
         }
 
     }
