@@ -56,7 +56,7 @@ using System.Windows.Shapes;
  */
 namespace client
 
-{ 
+{
 
     public partial class MainWindow : Window
     {
@@ -112,7 +112,7 @@ namespace client
                         stream.Write(warningData, 0, warningData.Length);
 
                         // A message box notifies the user of the excess contact towards the server and informs the client of the forced shutdown.
-                        MessageBox.Show(warningMessage +"\n"+ "This client will be forced to shut down.","Critical");
+                        MessageBox.Show(warningMessage + "\n" + "This client will be forced to shut down.", "Critical");
 
                         // Disconnect the client and close the form
 
@@ -223,7 +223,7 @@ namespace client
                     SendMessageToServer("Info: Connection terminated");
                     stream.Close();
                     stream = null;
-       
+
                 }
 
                 if (client != null)
