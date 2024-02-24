@@ -1,9 +1,9 @@
 import socket
 import threading
 import datetime
-import configparser #config file for ip and port 
+import configparser
 
-def handle_client(client_socket, client_address, client_id):
+def handle_client(client_socket, client_address, client_id, timestamp_format, entry_format):
     with client_socket as sock:
         try:
             while True:
@@ -11,8 +11,8 @@ def handle_client(client_socket, client_address, client_id):
                 if not message:
                     break
 
-                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                log_message = f"{timestamp} - Client{client_id} ({client_address}): {message}"
+                timestamp = datetime.datetime.now().strftime(timestamp_format)
+                log_message = entry_format.format(timestamp=timestamp, client_id=client_id, client_address=client_address, message=message)
                 print(log_message)
                 with open("log.txt", "a") as log_file:
                     log_file.write(log_message + "\n")
@@ -21,13 +21,14 @@ def handle_client(client_socket, client_address, client_id):
             print(f"Connection with Client{client_id} ({client_address}) was lost.")
 
 def run_server():
-    #IP and Port
     config = configparser.ConfigParser()
-    config.read('server_config.ini')  # the name of config file name
+    config.read('server_config.ini')
     host = config['DEFAULT']['Host']
     port = config['DEFAULT'].getint('Port')
     
-    #Socket for connection 
+    timestamp_format = config['LOG_FORMAT']['TimestampFormat']
+    entry_format = config['LOG_FORMAT']['EntryFormat']
+    
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
     server.listen(5)
@@ -38,7 +39,8 @@ def run_server():
         client_socket, client_address = server.accept()
         client_id += 1
         print(f"[*] Accepted connection from {client_address[0]}:{client_address[1]}")
-        thread = threading.Thread(target=handle_client, args=(client_socket, client_address, client_id))
+        # Pass the timestamp_format and entry_format to the handle_client function
+        thread = threading.Thread(target=handle_client, args=(client_socket, client_address, client_id, timestamp_format, entry_format))
         thread.start()
 
 if __name__ == "__main__":
