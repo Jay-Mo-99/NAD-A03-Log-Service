@@ -28,6 +28,11 @@ namespace client
         byte[] sendData;
         TcpClient client;
         private readonly object streamLock = new object(); //Lock object for Stream synchronization
+        private int sendCount = 0; //Variable that track the number of message transmissions
+        private const int sendLimitCount = 20; // Limit time for send 
+
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -42,6 +47,18 @@ namespace client
                     byte[] data = Encoding.ASCII.GetBytes(message);
                     stream = client.GetStream();
                     stream.Write(data, 0, data.Length);
+                    sendCount++; // Increase the count when sending a message
+
+                    if (sendCount > sendLimitCount)
+                    {
+                        // Send warning message when sendLimitCount is exceeded
+                        string warningMessage = "Critical: Client exceeded send limit";
+                        listBox_Display.Items.Add("Critical: Client exceeded send limit");
+                        byte[] warningData = Encoding.ASCII.GetBytes(warningMessage);
+                        stream.Write(warningData, 0, warningData.Length);
+
+                        sendCount = 0; // Initialize Count
+                    }
                 }
             }
             catch (Exception ex)
@@ -77,8 +94,7 @@ namespace client
             {
                 //If connection have problem, It is the Error situation
                 //Add the listbox and Send the Error situation to Server
-                listBox_Display.Items.Add("Error: Connection Failed");
-                SendMessageToServer("Error: Connection Failed: " + ex.Message);
+                listBox_Display.Items.Add("Notice: The IP address and port number do not match.Connection Failed");
 
             }
 
@@ -105,17 +121,31 @@ namespace client
 
         private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
         {
-            lock (streamLock) //Synchronize to the stream
+            lock (streamLock) // Synchronize to the stream
             {
-                stream.Close();
-                client.Close();
+                if (stream != null)
+                {
+                    SendMessageToServer("Info: Connection terminated");
+                    stream.Close();
+                    stream = null;
+                }
+
+                if (client != null)
+                {
+                    client.Close();
+                    client = null;
+                }
             }
 
             listBox_Display.Items.Add("Info: Connection terminated");
-            SendMessageToServer("Info: Connection terminated");
-            //Re-enable the Connect button when you press Disconnect
+
+            // Re-enable the Connect button when user click Disconnect button
             btn_Connect.IsEnabled = true;
             btn_Disconnect.IsEnabled = false;
+
+            //Initialize txt_Msg and listBox_Display
+            txt_Msg.Clear();
+            listBox_Display.Items.Clear();
         }
 
     }

@@ -11,7 +11,7 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBox x:Name="txt_IP" HorizontalAlignment="Left" Margin="93,51,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="255" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="txt_IP" HorizontalAlignment="Left" Margin="93,51,0,0" TextWrapping="Wrap" Text="10.169.92.10" VerticalAlignment="Top" Width="255" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txt_Port" HorizontalAlignment="Left" Margin="451,52,0,0" TextWrapping="Wrap" Text="8000" VerticalAlignment="Top" Width="120" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
         <TextBox x:Name="txt_Msg" HorizontalAlignment="Left" Margin="93,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="478" RenderTransformOrigin="-0.158,-0.577" Grid.ColumnSpan="2"/>
         <Label Content="IP/Host" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="22,47,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.016,0.055"/>
