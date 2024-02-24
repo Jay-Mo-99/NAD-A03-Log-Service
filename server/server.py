@@ -3,6 +3,20 @@ import threading
 import datetime
 import configparser
 
+
+#
+# FILE :        server.py
+# PROJECT :     server
+# PROGRAMMER :  Jay Mo
+# DATE :        2024-02-24
+# DESCRIPTION : This is the server part of the Tcp communication. 
+#               Save the contents of the success/termination/message delivery of the connection to the Client in a file called "log". 
+#               The generated log file is located at "server.py ". The log file will continue to accumulate until it is manually removed. 
+#               Even if somebody delete the log file, the log file will be created and recorded when the server and the client are connected.
+#               If a server error with the client occurs or other exception happens, consider the situation an "Error" and record it in the log file.
+#
+#
+
 def handle_client(client_socket, client_address, client_id, timestamp_format, entry_format):
     with client_socket as sock:
         try:
@@ -41,21 +55,26 @@ def handle_client(client_socket, client_address, client_id, timestamp_format, en
                 log_file.write(generic_error_message + "\n")
 
 def run_server():
+    # Read the server_config.ini file to get the host and port information.
     config = configparser.ConfigParser()
     config.read('server_config.ini')
     host = config['DEFAULT']['Host']
     port = config['DEFAULT'].getint('Port')
     
+    # Set the timestamp format and entry format for log messages
     timestamp_format = config['LOG_FORMAT']['TimestampFormat']
     entry_format = config['LOG_FORMAT']['EntryFormat']
     
+    # Initialize sockets, bind servers to hosts and ports
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
+    # The server waits for the client to connect; it can accommodate up to five connection requests at the same time.
     server.listen(5)
     print(f"[*] Listening on {host}:{port}")
 
     client_id = 0
     while True:
+             # The server accepts the client's connection and assigns a unique ID to each client    
             client_socket, client_address = server.accept()
             client_id += 1
             print(f"[*] Accepted connection from {client_address[0]}:{client_address[1]}")
