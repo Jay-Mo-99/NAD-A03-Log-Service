@@ -76,8 +76,16 @@ namespace client
         public MainWindow()
         {
             InitializeComponent();
+            btn_Send.IsEnabled = false;
+            btn_Disconnect.IsEnabled = false;
         }
-        //Send Message to Server 
+        /*
+         * Method: SendMessageToServer
+         * Purpose:A function that allows messages to be sent to the server in a prescribed format. 
+         *         If a client delivers a message more than 20 times, it considers it a critical situation and sends the contents to the server and pop up a message box, and forces the client to shut down.
+         * Param  : string message
+         * Returns: None
+         */
         public void SendMessageToServer(string message)
         {
             if (sendCount > sendLimitCount)
@@ -123,7 +131,12 @@ namespace client
             }
         }
 
-        //If the client click the connect button 
+        /*
+         * Method: btn_Connect_Click
+         * Purpose:When a user enters the server's IP and Port and presses the Connect button, it connects to the server. However, if it is not valid, the error is displayed in a message box and a notice statement is displayed in the listbox.
+         * Param  : object sender, RoutedEventArgs e
+         * Returns: None
+         */
         private void btn_Connect_Click(object sender, RoutedEventArgs e)
         {
             //If the client click the connect button, Disable until you press the Connect button
@@ -147,19 +160,28 @@ namespace client
                 client = new TcpClient(txt_IP.Text, port);
                 listBox_Display.Items.Add("Info: Connection Succeed");
                 SendMessageToServer("Info: Connection Succeed");
+                // Enable Send and Disconnect buttons
+                btn_Send.IsEnabled = true;
+                btn_Disconnect.IsEnabled = true;
             }
             catch (Exception ex)
             {
                 //A problem with IP and the server cannot connect is a client's input problem.Notice
                 //Creating a Message Box
                 MessageBox.Show(ex + "\n" + "Please check the ip and Port", "Notice");
-                listBox_Display.Items.Add("Notice: Connection Failed. Please check the ip and Port");                //Add the listbox
+                listBox_Display.Items.Add("Notice: Connection Failed. Please check the ip and Port");//Add the listbox
 
             }
 
         }
 
-        
+        /*
+         * Method: btn_Send_Click
+         * Purpose:After the user succeeds in connecting to the server, the user must enter a message and press Send to send the message to the server. If the user presses Send without entering the message, the user requests a message box.
+         * Param  : object sender, RoutedEventArgs e
+         * Returns: None
+         */
+
         private void btn_Send_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -185,6 +207,13 @@ namespace client
             }
         }
 
+
+        /*
+         * Method: DisconnectNetwork
+         * Purpose:After the user succeeds in connecting to the server, the user must enter a message and press Send to send the message to the server. If the user presses Send without entering the message, the user requests a message box.
+         * Param  : None
+         * Returns: If it is disconnected, return true, and if it is disconnected, return false
+         */
         public bool DisconnectNetwork()
         {
             lock (streamLock)
@@ -194,19 +223,28 @@ namespace client
                     SendMessageToServer("Info: Connection terminated");
                     stream.Close();
                     stream = null;
-                    checkDisconnet = true;
+       
                 }
 
                 if (client != null)
                 {
                     client.Close();
                     client = null;
-                    checkDisconnet = false;
+
                 }
+                checkDisconnet = true;
 
                 return checkDisconnet;
             }
         }
+
+
+        /*
+         * Method:  btn_Disconnect_Click
+         * Purpose: When the user presses the Disconnect button, the connection between the client and the server is terminated. Call the DisconnectNetwork function to end the connection with the server and initialize the Listbox and message input boxes.
+         * Param  : object sender, RoutedEventArgs e
+         * Returns: None
+         */
 
         private void btn_Disconnect_Click(object sender, RoutedEventArgs e)
         {
@@ -221,10 +259,13 @@ namespace client
                 // Re-enable the Connect button when user click Disconnect button
                 btn_Connect.IsEnabled = true;
                 btn_Disconnect.IsEnabled = false;
+                btn_Send.IsEnabled = false;
 
                 //Initialize txt_Msg and listBox_Display
                 txt_Msg.Clear();
                 listBox_Display.Items.Clear();
+                // Enable Send and Disconnect buttons
+                btn_Send.IsEnabled = false;
             });
         }
     }
