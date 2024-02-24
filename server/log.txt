@@ -1,9 +1,0 @@
-2024-02-24 01:21:16 - Client1 (('127.0.0.1', 53837)): Info: Connection Succeed
-2024-02-24 01:21:17 - Client1 (('127.0.0.1', 53837)): Info: Connection terminated
-2024-02-24 01:21:18 - Client2 (('127.0.0.1', 53853)): Info: Connection Succeed
-2024-02-24 01:21:21 - Client2 (('127.0.0.1', 53853)): Info: Connection terminated
-2024-02-24 01:24:19 - Client1 (('127.0.0.1', 54570)): Info: Connection Succeed
-2024-02-24 01:24:41 - Client1 (('127.0.0.1', 54570)): Info: Connection terminated
-2024-02-24 01:27:10 - Client1 (('10.169.92.10', 55249)): Info: Connection Succeed
-2024-02-24 01:27:17 - Client1 (('10.169.92.10', 55249)): Info: Connection terminated
-2024-02-24 01:27:18 - Client2 (('127.0.0.1', 55278)): Info: Connection Succeed
