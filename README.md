@@ -1,36 +1,48 @@
-The "main" branch has the client's code uploaded.
-The "master" branch has the server's code uploaded.
+# TCP/IP Client-Server Logging Simulator
 
-* Main Function of Client: 
-*   * Connect: 
-*             The user can connect to the server by entering the server's ip and port correctly and pressing the connect button. 
-*             If the user enters invalid values for the ip and port, a message box will display a warning. If Connect succeeds, the Connect button will be disabled until you press Disconnect.
-*
-*   * Send: 
-*             After a successful connection between the client and the server, users can enter a message and press the Send button to send a message to the server. 
-*             If you press the Send button without entering a message, the message box displays a warning.
-*
-*   * Disconnect: 
-*             Pressing the button removes the connection between the client and the server. 
-*             Pressing the Disconnect button will reset the message entry box and listbox. At the same time, the Connect button will be reactivated.
-*             
-* 
-* Log Severity Level:
-*     * Critical:
-*               If a user sends a message more than 20 times after Connect is successful, the user is recognized as an intruder. 
-*               Show a warning to the user in a message box and force the client to shut down.
-*               Server writes Critical Issue in the "log"
-*               
-*     * Error:
-*               This is considered an error situation when a network error occurs between the Client and the Server. 
-*               If the Error ocuured from Client, Users can query Listbox for the error.
-*               If the Error occured from Server, The server writes the corresponding error in the "log". 
-*               
-*     * Info(Information):
-*               Connection Success/Terminate/Send Message is considered normal and is displayed at the Information level. 
-*               Users can look up their Info in Listbox and Server writes Info in the "log"
-*               
-*     * Notice:
-*               The client's IP/Port input error is a notice situation that only appears to the client. 
-*               Users can notify the user of the situation with a message box or query the Listbox.
-*               Server doesn't write Notice Issue in the "log"
+This project demonstrates a simple client-server communication using TCP/IP, along with a basic logging mechanism based on log severity levels.
+
+## 🔀 Branch Structure
+
+- **`main`**: Contains the **client-side** code.
+- **`master`**: Contains the **server-side** code.
+
+---
+
+## 💻 Client Main Functions
+
+### 🔌 Connect
+
+- Users can connect to the server by entering the **IP** and **Port**, then clicking the **Connect** button.
+- If invalid values are entered, a **message box** displays a warning.
+- On a successful connection:
+  - The **Connect** button is disabled.
+  - The **Disconnect** button becomes active.
+
+### 📤 Send
+
+- After a successful connection, users can type a message and press **Send** to transmit it to the server.
+- If the Send button is clicked without any input, a **warning** is shown.
+
+### 🔌 Disconnect
+
+- Pressing **Disconnect**:
+  - Terminates the connection with the server.
+  - Clears the message input field and listbox.
+  - Reactivates the **Connect** button.
+
+---
+
+## 🪵 Log Severity Levels
+
+### 🔴 Critical
+
+- If a user sends **more than 20 messages** after connecting, the system flags them as an intruder.
+- A warning message is displayed, and the client is **forcefully shut down**.
+- The server logs this as a **Critical Issue**.
+
+### 🟠 Error
+
+- Triggered by network issues between the client and server.
+- If the error originates from the **Client**:
+  - Users can view the error via the **Lis**
