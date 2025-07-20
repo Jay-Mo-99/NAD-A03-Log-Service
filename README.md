@@ -45,4 +45,26 @@ This project demonstrates a simple client-server communication using TCP/IP, alo
 
 - Triggered by network issues between the client and server.
 - If the error originates from the **Client**:
-  - Users can view the error via the **Lis**
+  - Users can view the error via the **Listbox**.
+- If the error originates from the **Server**:
+  - It is recorded in the server's **log** file as an **Error**.
+
+### 🔵 Info
+
+- Normal events such as:
+  - Connection success
+  - Message sent
+  - Disconnection
+- These are shown in the **Listbox** and logged by the server as **Information**.
+
+### 🟡 Notice
+
+- Occurs when the client enters an invalid IP or port.
+- The user is notified via a **message box** or the **Listbox**.
+- This is **not logged** on the server.
+
+---
+
+## 📌 Note
+
+- The simulator is designed to demonstrate logging, error handling, and connection management in a simple TCP/IP environment.
